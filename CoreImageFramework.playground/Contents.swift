@@ -8,14 +8,13 @@ let url = Bundle.main.url(forResource: "photoTest", withExtension: "jpeg")!
 // 1: Options
 let options = [
     CIImageOption.applyOrientationProperty: true,
-    //CIImageOption.nearestSampling: true
 ]
 let image = CIImage(contentsOf: url, options: options)
 
-// 2: Filtering
+ 2: Filtering
 
-//let filter = CIFilter(name: "CIVibrance", parameters: ["inputImage": image, "inputAmount": 0.9])
-//filter?.outputImage
+let filter = CIFilter(name: "CIVibrance", parameters: ["inputImage": image, "inputAmount": 0.9])
+filter?.outputImage
 
 let filter = CIFilter.vibrance()
 filter.amount = 0.9
@@ -34,4 +33,11 @@ filter3.intensity = 0.9
 filter3.inputImage = filter2.outputImage
 
 let finishedImage = filter3.outputImage?.cropped(to: image!.extent)
+
+
+// 4: - UIImage from CIImage
+let uiImage = UIImage(ciImage: finishedImage!)
+
+
+
 
